@@ -1,0 +1,27 @@
+.hero {
+    padding: 40px;
+    color: white;
+    text-align: center;
+    background-size: cover;
+    min-height: 100vh;
+  }
+  
+  .search-box {
+    margin: 20px auto;
+  }
+  
+  .search-box select,
+  .search-box button {
+    padding: 10px;
+    font-size: 16px;
+    margin: 10px;
+  }
+  
+  .results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+  }
+  

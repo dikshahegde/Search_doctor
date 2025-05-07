@@ -1,0 +1,31 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    /*background-color: #f6f2f2;*/
+    padding: 10px;
+    color: rgb(16, 16, 16);
+    font-size: 24px;
+    margin: 0 15px;
+    text-decoration: none;
+  }
+  
+  .header-container .logo {
+    font-size: 40px; /* Desired size */
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+  }
+  .link{
+    margin-left: 50px;
+    color: rgb(19, 19, 19);
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .link a:hover{
+    color:rgb(154, 209, 237);
+  }
+
+  
+  
+  
