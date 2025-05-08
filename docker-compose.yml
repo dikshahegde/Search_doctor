@@ -3,6 +3,7 @@ version: '3.8'
 services:
   backend:
     build: ./backend
+    container_name: doctor_search-backend
     ports:
       - "8080:8080"
     volumes:
@@ -10,16 +11,21 @@ services:
 
   frontend:
     build: ./ecom-frontend
+    container_name: doctor_search-frontend
     ports:
       - "3000:3000"
 
   jenkins:
     image: jenkins/jenkins:lts
+    user: root                                # ✅ Run Jenkins as root
+    container_name: jenkins
     ports:
-      - "9090:8080"     # Jenkins UI
-      - "50000:50000"   # Jenkins agent
+      - "9090:8080"
+      - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock  # ✅ Allow access to Docker engine
+      - /usr/bin/docker:/usr/bin/docker            # ✅ Optional: needed for docker CLI
 
 volumes:
   jenkins_home:
