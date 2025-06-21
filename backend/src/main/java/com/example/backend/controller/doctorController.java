@@ -1,12 +1,10 @@
 package com.example.backend.controller;
 
 import java.util.List;
-
 import com.example.backend.model.User;
 import com.example.backend.model.doctors;
 import com.example.backend.service.DoctorsService;
 import com.example.backend.service.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
