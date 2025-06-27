@@ -2,7 +2,10 @@ package com.example.backend.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,10 +35,11 @@ public class doctors {
     @JoinColumn(name = "hosp_id") //creates a column for foreign key of another table
     private Hospital hosp;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="spec_id")
     private Specialization spec;
 
     @OneToMany(mappedBy = "doctor")
+    @JsonIgnore
     private List<Review> reviews;
 }

@@ -2,6 +2,8 @@ package com.example.backend.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +33,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "doctor_id")
+    @JsonIgnore
     private doctors doctor;
 }
 
