@@ -17,6 +17,8 @@ const DoctorCard = ({ doctor }) => {
       <p><strong>Fees:</strong> {doctor.fees}</p>
       <p><strong>Experience:</strong> {doctor.exp}</p>
       <button onClick={handleMapSearch}>Search in Google Maps</button>
+      <br/>
+      <button>Add a review</button>
     </div>
   );
 };

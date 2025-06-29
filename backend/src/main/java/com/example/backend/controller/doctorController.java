@@ -1,13 +1,17 @@
 package com.example.backend.controller;
 
 import java.util.List;
+
+import com.example.backend.model.Review;
 import com.example.backend.model.User;
 import com.example.backend.model.doctors;
 import com.example.backend.service.DoctorsService;
+import com.example.backend.service.ReviewService;
 import com.example.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +29,20 @@ public class doctorController {
     public List<doctors> getAllDoctors(){
         return service.getAllDoctors();
     }
+
+    @Autowired
+    private ReviewService reviewService;
+
+    @PostMapping("/doctors/{doctorId}/reviews")
+public Review submitReview(@PathVariable Long doctorId, @RequestBody Review review) {
+    return reviewService.saveReviews(doctorId, review);  
+}
+
+    @GetMapping("/doctors/{doctorId}/reviews")
+    public List<Review> getDoctorReviews(@PathVariable Long doctorId){
+        return reviewService.getReviewsByDoctorId(doctorId);
+    }
+
     @Autowired 
     private UserService userService;
     @PostMapping("/register")
