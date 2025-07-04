@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class doctors {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long doctorId;
+    private Long Id;
     private String name;
     private String qualification;
     private int exp;
@@ -33,10 +33,12 @@ public class doctors {
 
     @ManyToOne //many doctors may belong to one hospital
     @JoinColumn(name = "hosp_id") //creates a column for foreign key of another table
+    @JsonIgnore
     private Hospital hosp;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="spec_id")
+    @JsonIgnore
     private Specialization spec;
 
     @OneToMany(mappedBy = "doctor")

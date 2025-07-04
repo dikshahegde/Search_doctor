@@ -29,7 +29,8 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    @JsonIgnore
+    private Users user;
 
     @ManyToOne
     @JoinColumn(name = "doctor_id")

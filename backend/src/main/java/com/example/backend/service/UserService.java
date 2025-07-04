@@ -3,17 +3,17 @@ package com.example.backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.backend.model.User;
+import com.example.backend.model.Users;
 import com.example.backend.repo.UserRepo;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepo repo;
-    public User saveUser(User user){
+    public Users saveUser(Users user){
         return repo.save(user);
     }
-    public User findByEmail(String email){
+    public Users findByEmail(String email){
         return repo.findByEmail(email);
     }
     

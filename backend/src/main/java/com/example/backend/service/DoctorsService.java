@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.backend.repo.DoctorRepo;
 
-@Service
+@Service // it contains the logic and it is a layer between controllers and jpa repo 
 public class DoctorsService {
     @Autowired
     private DoctorRepo repo;

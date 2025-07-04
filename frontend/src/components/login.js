@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react';//use state keeps account of states
 import './login.css';
 
 const Login = () => {
@@ -9,7 +9,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const response = await fetch('https://search-doctor-backend-2.onrender.com/api/login', {
+    const response = await fetch('https://localhost:8080/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,12 +32,14 @@ const Login = () => {
       <form onSubmit={handleLogin}>
   <input
     type="email"
+    placeholder="Enter email"
     value={email}
     onChange={(e) => setEmail(e.target.value)}
     required
   />
   <input
     type="password"
+    placeholder="Enter password"
     value={password}
     onChange={(e) => setPassword(e.target.value)}
     required

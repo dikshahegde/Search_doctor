@@ -9,5 +9,5 @@ import com.example.backend.model.Review;
 
 @Repository
 public interface ReviewRepo extends JpaRepository<Review,Long>{
-    List<Review> findByDoctorId(Long doctorId);
+    List<Review> findReviewsByDoctorId(Long doctorId);
 }

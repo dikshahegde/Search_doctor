@@ -3,7 +3,7 @@ package com.example.backend.controller;
 import java.util.List;
 
 import com.example.backend.model.Review;
-import com.example.backend.model.User;
+import com.example.backend.model.Users;
 import com.example.backend.model.doctors;
 import com.example.backend.service.DoctorsService;
 import com.example.backend.service.ReviewService;
@@ -33,20 +33,20 @@ public class doctorController {
     @Autowired
     private ReviewService reviewService;
 
-    @PostMapping("/doctors/{doctorId}/reviews")
-public Review submitReview(@PathVariable Long doctorId, @RequestBody Review review) {
-    return reviewService.saveReviews(doctorId, review);  
-}
+    @PostMapping("/doctors/{Id}/reviews")
+        public Review submitReview(@PathVariable Long Id, @RequestBody Review review) {// path variable is used to take Id from the url and use it as a parameter
+        return reviewService.saveReviews(Id, review);  // requestbody is used is used to convert json to review object
+    }
 
-    @GetMapping("/doctors/{doctorId}/reviews")
-    public List<Review> getDoctorReviews(@PathVariable Long doctorId){
-        return reviewService.getReviewsByDoctorId(doctorId);
+    @GetMapping("/doctors/{Id}/reviews")
+    public List<Review> getDoctorReviews(@PathVariable Long Id){
+        return reviewService.getReviewsByDoctorId(Id);
     }
 
     @Autowired 
     private UserService userService;
     @PostMapping("/register")
-    public String register(@RequestBody User user){
+    public String register(@RequestBody Users user){
         if(userService.findByEmail(user.getEmail())!=null){
             return "Email alredy registered";
         }
@@ -56,8 +56,8 @@ public Review submitReview(@PathVariable Long doctorId, @RequestBody Review revi
 
     }
     @PostMapping("/login")
-    public String loginUser(@RequestBody User user) {
-        User existing = userService.findByEmail(user.getEmail());
+    public String loginUser(@RequestBody Users user) {
+        Users existing = userService.findByEmail(user.getEmail());
         if (existing == null) {
             return "User not found!";
         }

@@ -18,12 +18,14 @@ public class ReviewService {
     @Autowired
     private DoctorRepo doctorRepo;
     public List<Review> getReviewsByDoctorId(Long doctorId){
-        return repo.findByDoctorId(doctorId);
+        return repo.findReviewsByDoctorId(doctorId);
     }
-    public Review saveReviews(Long doctorId,Review review){
-        doctors doctor = doctorRepo.findById(doctorId)
-                .orElseThrow(() -> new RuntimeException("Doctor not found with ID: " + doctorId));
-        review.setDoctor(doctor);
-        return repo.save(review);
-    }
+    public Review saveReviews(Long doctorId, Review review) {
+    doctors doctor = doctorRepo.findById(doctorId)
+        .orElseThrow(() -> new RuntimeException("Doctor not found with ID: " + doctorId));
+    review.setDoctor(doctor);//setter
+    return repo.save(review);//saved by jpa
+}
+
+
 }

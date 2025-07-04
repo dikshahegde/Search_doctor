@@ -60,7 +60,7 @@ const Home = () => {
           <option value="Homeopathy">Homeopathy</option>
           <option value="Cardiologist">Cardiologist</option>
         </select>
-        <button onClick={handleSearch}>Search</button>
+        <button onClick={handleSearch} className="search-button">Search</button>
       </div>
 
       <div className="results">
