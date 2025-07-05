@@ -15,7 +15,8 @@ function App() {
         <Header /> {/* Display Header on all pages */}
         <Routes>
           {/* Define Routes for different pages */}
-          <Route path="/" element={<Home />} /> {/* Home page */}
+          <Route path="/" element={<Login />} /> 
+          <Route path="/home" element={<Home />} /> {/* Home page */}
           <Route path="/login" element={<Login />} /> {/* Login page */}
           <Route path="/register" element={<Register />} /> {/* Register page */}
           <Route path="/about" element={<About />} /> {/* About page */}

@@ -33,12 +33,10 @@ public class doctors {
 
     @ManyToOne //many doctors may belong to one hospital
     @JoinColumn(name = "hosp_id") //creates a column for foreign key of another table
-    @JsonIgnore
     private Hospital hosp;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="spec_id")
-    @JsonIgnore
     private Specialization spec;
 
     @OneToMany(mappedBy = "doctor")
