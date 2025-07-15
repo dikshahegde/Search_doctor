@@ -21,7 +21,7 @@ const DoctorCard = ({ doctor }) => {
         <p><strong>Fees:</strong> ₹{doctor.fees}</p>
         <p><strong>Experience:</strong> {doctor.exp} years</p>
         <div className="button-group">
-          <button onClick={handleMapSearch}>📍 Find on Maps</button>
+          <button onClick={handleMapSearch}>Find on Maps</button>
           <button onClick={() => setShowModal(true)}>⭐ Add Review</button>
         </div>
       </div>
