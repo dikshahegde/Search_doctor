@@ -1,44 +1,71 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import './review.css';
 
-function Review() {
-  const { doctorId } = useParams(); // 👈 capture the ID from the URL
+const Review = ({ doctorId, userEmail, onClose }) => {
   const [comment, setComment] = useState('');
-  const [rating, setRating] = useState('');
+  const [rating, setRating] = useState(1);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch(`http://localhost:8080/api/doctors/${Id}/reviews`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ comment, rating })
-    });
-    alert("Review submitted!");
+
+    if (!comment.trim()) {
+      alert('Please enter a comment.');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:8080/api/doctors/${doctorId}/users/${userEmail}/reviews`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ comment, rating })
+});
+
+
+      if (!response.ok) {
+        throw new Error('Failed to submit review');
+      }
+
+      alert("Review submitted successfully!");
+      onClose();
+
+    } catch (err) {
+      console.error('Error:', err);
+      alert('Error submitting review. Please try again.');
+    }
   };
 
   return (
-    <div>
-      <h2>Submit Review for Doctor ID: {doctorId}</h2>
-      <form onSubmit={handleSubmit}>
-        <textarea
-          value={comment}
-          onChange={e => setComment(e.target.value)}
-          placeholder="Write your review"
-        />
-        <br />
-        <input
-          type="number"
-          value={rating}
-          onChange={e => setRating(e.target.value)}
-          placeholder="Rating (1-5)"
-        />
-        <br />
-        <button type="submit">Submit</button>
-      </form>
+    <div className="review-modal-overlay">
+      <div className="review-modal">
+        <h2>Add Review for Doctor ID: {doctorId}</h2>
+        <form onSubmit={handleSubmit}>
+          <label>Rating (1–5):</label>
+          <input
+            type="number"
+            min="1"
+            max="5"
+            value={rating}
+            onChange={(e) => setRating(parseInt(e.target.value))}
+            required
+          />
+
+          <label>Comment:</label>
+          <textarea
+            rows="4"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Write your review here..."
+            required
+          />
+
+          <div className="review-buttons">
+            <button type="submit">Submit</button>
+            <button type="button" onClick={onClose}>Cancel</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
-}
+};
 
 export default Review;

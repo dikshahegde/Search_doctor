@@ -4,17 +4,17 @@ import './Header.css';
 
 const Header = () => {
   return (
-    <div className="header-container">
-      <div className="logo"><h3>Doctor Finder</h3></div> 
-      <div className="navbar">
-        <div className="links">
-          <Link className="link" to="/home">Home</Link>
-          <Link className="link" to="/login">Login</Link>
-          <Link className="link" to="/register">Register</Link>
-          <Link className="link" to="/about">About</Link>
-        </div>
+    <header className="header">
+      <div className="header-container">
+        <div className="logo">Doctor Finder</div>
+        <nav className="nav-links">
+          <Link to="/home" className="nav-link">Home</Link>
+          <Link to="/login" className="nav-link">Login</Link>
+          <Link to="/register" className="nav-link">Register</Link>
+          <Link to="/about" className="nav-link">About</Link>
+        </nav>
       </div>
-    </div>
+    </header>
   );
 };
 

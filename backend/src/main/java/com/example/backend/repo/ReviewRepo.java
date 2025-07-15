@@ -10,4 +10,5 @@ import com.example.backend.model.Review;
 @Repository
 public interface ReviewRepo extends JpaRepository<Review,Long>{
     List<Review> findReviewsByDoctorId(Long doctorId);
+    
 }

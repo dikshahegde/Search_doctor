@@ -33,7 +33,7 @@ public class Review {
     private Users user;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id")
+    @JoinColumn(name = "doctor_id",nullable = false)
     @JsonIgnore
     private doctors doctor;
 }

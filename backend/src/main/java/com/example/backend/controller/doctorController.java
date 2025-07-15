@@ -30,12 +30,21 @@ public class doctorController {
         return service.getAllDoctors();
     }
 
+    
+    @GetMapping("/users")
+    public List<Users> getAllUsers(){
+        return userService.getAllUsers();
+    }
+
     @Autowired
     private ReviewService reviewService;
 
-    @PostMapping("/doctors/{Id}/reviews")
-        public Review submitReview(@PathVariable Long Id, @RequestBody Review review) {// path variable is used to take Id from the url and use it as a parameter
-        return reviewService.saveReviews(Id, review);  // requestbody is used is used to convert json to review object
+    @PostMapping("/doctors/{Id}/users/{email}/reviews")
+        public Review submitReview(
+            @PathVariable("Id") Long Id,
+            @PathVariable("email") String email,
+            @RequestBody Review review) {// path variable is used to take Id from the url and use it as a parameter
+        return reviewService.saveReview(Id,email,review);  // requestbody is used is used to convert json to review object
     }
 
     @GetMapping("/doctors/{Id}/reviews")
