@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './review.css';
+import { getToken } from '../utils/auth';
 
 const Review = ({ doctorId, userEmail, onClose }) => {
   const [comment, setComment] = useState('');
@@ -7,6 +8,7 @@ const Review = ({ doctorId, userEmail, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = getToken();
 
     if (!comment.trim()) {
       alert('Please enter a comment.');
@@ -15,11 +17,13 @@ const Review = ({ doctorId, userEmail, onClose }) => {
 
     try {
       const response = await fetch(`http://localhost:8080/api/doctors/${doctorId}/users/${userEmail}/reviews`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ comment, rating })
-});
-
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ comment, rating })
+      });
 
       if (!response.ok) {
         throw new Error('Failed to submit review');

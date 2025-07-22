@@ -4,6 +4,7 @@
     text-align: center;
     background-size: cover;
     min-height: 100vh;
+    background-image: url('../assets/background.jpg');
   }
   h1{
     color: black;

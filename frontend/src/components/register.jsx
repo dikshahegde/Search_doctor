@@ -1,75 +1,61 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './login.css';
+import './register.css';
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/api/login', {
+      const response = await fetch('http://localhost:8080/api/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
 
       const result = await response.text();
       setMessage(result);
 
-      if (result === "Login successful!") {
-        alert("✅ Logged in!");
-        navigate('/home');
+      if (result === "User registered successfully!") {
+        alert("✅ Registration successful! Please login.");
+        setEmail('');
+        setPassword('');
+        navigate('/login');   // ✅ Redirect to login page
       }
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("Registration error:", error);
       setMessage("Error connecting to server.");
     }
   };
 
-  const goToRegister = () => {
-    navigate('/register');
-  };
-
   return (
-    <div className="login-card">
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+    <div className="register-card">
+      <h2>Register</h2>
+      <form onSubmit={handleRegister}>
         <input
           type="email"
           placeholder="Enter email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-        />
+        /><br />
         <input
           type="password"
           placeholder="Enter password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-        />
-        <button type="submit">Login</button>
+        /><br />
+        <button type="submit">Register</button>
       </form>
-
-      {message && (
-        <>
-          <p className="message">{message}</p>
-          {message !== "Login successful!" && (
-            <button className="register-link" onClick={goToRegister}>
-              Register Instead
-            </button>
-          )}
-        </>
-      )}
+      {message && <p className="message">{message}</p>}
     </div>
   );
 };
 
-export default Login;
+export default Register;

@@ -1,30 +1,32 @@
 import React from 'react';
-import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './components/Header';
-import Home from './components/Home'; 
-import Login from './components/login'; 
-import Register from './components/register'; 
-import About from './components/About'; 
-import Review from './components/review';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './components/login';
+import Home from './components/Home';
+import Register from './components/register';
+import ProtectedRoute from './components/ProtectedRoute';
+import DoctorReviews from './components/DoctorReviews';
+import { isLoggedIn } from './utils/auth';
 
-function App() {
+const App = () => {
   return (
     <Router>
-      <div className="doctor-list-container"> {/* Apply the class here */}
-        <Header /> {/* Display Header on all pages */}
-        <Routes>
-          {/* Define Routes for different pages */}
-          <Route path="/" element={<Login />} /> 
-          <Route path="/home" element={<Home />} /> {/* Home page */}
-          <Route path="/login" element={<Login />} /> {/* Login page */}
-          <Route path="/register" element={<Register />} /> {/* Register page */}
-          <Route path="/about" element={<About />} /> {/* About page */}
-          <Route path="/doctors/:doctorId/review" element={<Review />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={isLoggedIn() ? <Navigate to="/home" /> : <Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/home" element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        } />
+        <Route path="/doctors/:Id/reviews" element={
+          <ProtectedRoute>
+            <DoctorReviews />
+          </ProtectedRoute>
+        } />
+      </Routes>
     </Router>
   );
-}
+};
 
 export default App;

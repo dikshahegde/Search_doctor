@@ -5,10 +5,12 @@ import java.util.List;
 import com.example.backend.model.Review;
 import com.example.backend.model.Users;
 import com.example.backend.model.doctors;
+import com.example.backend.repo.UserRepo;
 import com.example.backend.service.DoctorsService;
 import com.example.backend.service.ReviewService;
-import com.example.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,24 +20,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api")
 public class doctorController {
 
+    //get all doctors
     @Autowired
-    private DoctorsService service;
+    private DoctorsService doctorservice;
 
     @GetMapping("/doctors")
     public List<doctors> getAllDoctors(){
-        return service.getAllDoctors();
+        return doctorservice.getAllDoctors();
     }
 
-    
-    @GetMapping("/users")
-    public List<Users> getAllUsers(){
-        return userService.getAllUsers();
-    }
-
+    //add and view the reviews of each doctors
     @Autowired
     private ReviewService reviewService;
 
@@ -52,27 +49,20 @@ public class doctorController {
         return reviewService.getReviewsByDoctorId(Id);
     }
 
-    @Autowired 
-    private UserService userService;
-    @PostMapping("/register")
-    public String register(@RequestBody Users user){
-        if(userService.findByEmail(user.getEmail())!=null){
-            return "Email alredy registered";
-        }
-        
-        userService.saveUser(user);
-        return "Registration Completed";
+    //register to website
+    @Autowired
+private UserRepo userRepo;
 
-    }
-    @PostMapping("/login")
-    public String loginUser(@RequestBody Users user) {
-        Users existing = userService.findByEmail(user.getEmail());
-        if (existing == null) {
-            return "User not found!";
-        }
-        if (!existing.getPassword().equals(user.getPassword())) {
-            return "Incorrect password!";
-        }
-        return "Login successful!";
-    }
+@Autowired
+private PasswordEncoder passwordEncoder;
+
+@PostMapping("/register")
+public ResponseEntity<?> registerUser(@RequestBody Users user) {
+    // Encode the password before saving
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
+    userRepo.save(user);
+    return ResponseEntity.ok("User registered successfully");
+}
+
+    
 }
