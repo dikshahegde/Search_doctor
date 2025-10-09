@@ -19,13 +19,19 @@ const Register = () => {
       });
 
       const result = await response.text();
-      setMessage(result);
-
-      if (result === "User registered successfully!") {
+      
+      if (response.status === 409) {
+        setMessage(result);
+        return;
+      }
+      
+      if (response.ok && result === "User registered successfully") {
         alert("✅ Registration successful! Please login.");
         setEmail('');
         setPassword('');
-        navigate('/login');   // ✅ Redirect to login page
+        navigate('/login');
+      } else {
+        setMessage(result);
       }
     } catch (error) {
       console.error("Registration error:", error);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
+import { getToken } from '../utils/auth';
 import './DoctorReviews.css';
 
 const DoctorReviews = () => {
@@ -10,8 +11,14 @@ const DoctorReviews = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/doctors/${Id}/reviews`)
+    const token = getToken();
+    fetch(`http://localhost:8080/api/doctors/${Id}/reviews`, {
+      headers: token ? { 'Authorization': `Bearer ${token}` } : undefined
+    })
       .then(res => {
+        if (res.status === 401) {
+          throw new Error('Unauthorized. Please login again.');
+        }
         if (!res.ok) {
           throw new Error('Failed to fetch reviews');
         }
@@ -24,8 +31,8 @@ const DoctorReviews = () => {
           setError('Unexpected response format');
         }
       })
-      .catch(() => {
-        setError('Error fetching reviews');
+      .catch((e) => {
+        setError(e.message || 'Error fetching reviews');
       });
   }, [Id]);
 

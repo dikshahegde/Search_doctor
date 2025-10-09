@@ -9,9 +9,9 @@ import com.example.backend.repo.UserRepo;
 import com.example.backend.service.DoctorsService;
 import com.example.backend.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,6 +58,11 @@ private PasswordEncoder passwordEncoder;
 
 @PostMapping("/register")
 public ResponseEntity<?> registerUser(@RequestBody Users user) {
+    // Check if email already exists
+    if (userRepo.findByEmail(user.getEmail()) != null) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already registered. Please use a different email or try logging in.");
+    }
+    
     // Encode the password before saving
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     userRepo.save(user);

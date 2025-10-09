@@ -15,7 +15,7 @@ const DoctorCard = ({ doctor, userEmail }) => {
   };
 
   const handleViewReviews = () => {
-    navigate(`/doctors/${doctor.id}/reviews`);
+    navigate(`/doctors/${doctor.id}/reviews`, { state: { name: doctor.name } });
   };
 
   return (

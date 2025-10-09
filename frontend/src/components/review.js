@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './review.css';
-import { getToken } from '../utils/auth';
+import { getToken, getUserEmail } from '../utils/auth';
 
 const Review = ({ doctorId, userEmail, onClose }) => {
   const [comment, setComment] = useState('');
@@ -16,7 +16,12 @@ const Review = ({ doctorId, userEmail, onClose }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/api/doctors/${doctorId}/users/${userEmail}/reviews`, {
+      const emailToUse = userEmail || getUserEmail();
+      if (!emailToUse) {
+        alert('Unable to detect your email from the session. Please log in again.');
+        return;
+      }
+      const response = await fetch(`http://localhost:8080/api/doctors/${doctorId}/users/${encodeURIComponent(emailToUse)}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
