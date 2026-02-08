@@ -1,0 +1,24 @@
+# Ignore all environment files
+.env
+.env.*
+
+# Frontend env
+frontend/.env
+frontend/.env.*
+
+# Backend env
+backend/.env
+backend/.env.*
+
+# Node
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
