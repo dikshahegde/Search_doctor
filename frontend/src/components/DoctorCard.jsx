@@ -9,7 +9,12 @@ const DoctorCard = ({ doctor, userEmail }) => {
   const navigate = useNavigate();
 
   const handleMapSearch = () => {
-    const query = `${doctor.name} ${doctor.hosp?.name} ${doctor.city}`;
+    const query = [
+      doctor.hosp?.name,
+      doctor.city,
+      doctor.spec?.name ? `${doctor.spec.name} ${doctor.name}` : doctor.name
+    ].filter(Boolean).join(', ');
+    
     const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
     window.open(mapsUrl, '_blank');
   };
@@ -20,7 +25,7 @@ const DoctorCard = ({ doctor, userEmail }) => {
 
   return (
     <div className="doctor-card">
-      <h2>{doctor.name} (ID: {doctor.id})</h2>
+      <h2>{doctor.name}</h2>
       <div className="card-content">
         <p><strong>Specialization:</strong> {doctor.spec?.name}</p>
         <p><strong>Hospital:</strong> {doctor.hosp?.name}</p>

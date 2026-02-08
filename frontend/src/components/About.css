@@ -21,3 +21,11 @@
   padding: 0 15px;
   font-weight: bold;
 }
+
+
+.message {
+  margin-top: 10px;
+  font-size: 14px;
+  color: red;   /* ✅ red text */
+  font-weight: bold;
+}

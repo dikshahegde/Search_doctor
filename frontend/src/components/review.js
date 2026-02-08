@@ -21,7 +21,8 @@ const Review = ({ doctorId, userEmail, onClose }) => {
         alert('Unable to detect your email from the session. Please log in again.');
         return;
       }
-      const response = await fetch(`http://localhost:8080/api/doctors/${doctorId}/users/${encodeURIComponent(emailToUse)}/reviews`, {
+      const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+      const response = await fetch(`${API_BASE_URL}/api/doctors/${doctorId}/users/${encodeURIComponent(emailToUse)}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

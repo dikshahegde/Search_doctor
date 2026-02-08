@@ -12,7 +12,8 @@ const DoctorReviews = () => {
 
   useEffect(() => {
     const token = getToken();
-    fetch(`http://localhost:8080/api/doctors/${Id}/reviews`, {
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+    fetch(`${API_BASE_URL}/api/doctors/${Id}/reviews`, {
       headers: token ? { 'Authorization': `Bearer ${token}` } : undefined
     })
       .then(res => {

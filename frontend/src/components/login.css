@@ -41,4 +41,22 @@
     margin-top: 15px;
     color: #d9534f; /* red for error, can change dynamically */
   }
+
+
+  .switch-auth {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+.link-text {
+  color: #007bff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.link-text:hover {
+  text-decoration: underline;
+}
+
   

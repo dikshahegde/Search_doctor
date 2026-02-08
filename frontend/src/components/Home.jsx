@@ -22,7 +22,8 @@ const Home = () => {
       }
 
       try {
-        const response = await fetch('http://localhost:8080/api/doctors', {
+        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+        const response = await fetch(`${API_BASE_URL}/api/doctors`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -150,7 +151,7 @@ const Home = () => {
         )}
         </div>
         <select value={spec} onChange={(e) => setSpec(e.target.value)}>
-          <option value="" disabled>Select Doctor Type</option>
+          <option value="">All doctors</option>
           <option value="Pulmonology">Pulmonology</option>
           <option value="Dentist">Dentist</option>
           <option value="Neurologist">Neurologist</option>
